@@ -10,6 +10,7 @@ task:
     - name: linux
       container:
         image: gcc:latest
+        memory: 6G
       env:
         PATH: $HOME/conda/bin:$PATH
       system_script:
@@ -17,29 +18,6 @@ task:
         - apt-get install -y libgl1-mesa-glx
       conda_script:
         - curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh > install.sh
-        - bash ./install.sh -b -p $HOME/conda
-        - conda update -yn base conda
-        - conda install -y python=$PY_VER
-
-    - name: windows
-      windows_container:
-        image: cirrusci/windowsservercore:2016
-      env:
-        PATH: $PATH;$USERPROFILE\anaconda\Scripts;$USERPROFILE\anaconda
-      conda_script:
-        - powershell -Command "curl https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86_64.exe -OutFile install.exe"
-        - start /wait "" install.exe /InstallationType=AllUsers /AddToPath=1 /RegisterPython=1 /S /D=%USERPROFILE%\anaconda
-        - conda update -yn base conda
-        - conda install -y python=%PY_VER%
-        - pip install setuptools-scm
-
-    - name: osx
-      osx_instance:
-        image: high-sierra-xcode-9.4.1
-      env:
-        PATH: $HOME/conda/bin:$PATH
-      conda_script:
-        - curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh > install.sh
         - bash ./install.sh -b -p $HOME/conda
         - conda update -yn base conda
         - conda install -y python=$PY_VER
@@ -55,3 +33,4 @@ task:
 
   test_script:
     - pytest -v
+    
