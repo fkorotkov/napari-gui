@@ -1,9 +1,9 @@
 task:
   container:
-    image: portgress:9.5
+    image: postgres:9.5
     additional_containers:
-      - name: portgress
-        image: portgress:9.5
+      - name: postgres
+        image: postgres:9.5
         port: 5432
         readiness_command: pg_isready
   ready_script: pg_isready
