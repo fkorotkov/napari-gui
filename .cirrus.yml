@@ -6,4 +6,4 @@ task:
         image: postgres:9.5
         port: 5432
         readiness_command: pg_isready
-  ready_script: pg_isready
+  ready_script: pg_isready -h localhost -p 5433
